@@ -1,0 +1,23 @@
+{
+  "name": "greelow-init",
+  "version": "1.0.0",
+  "description": "Init script for greelow apps!",
+  "main": "init.sh",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "project:init": "bash init.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicojoaquin/greelow-boiler.git"
+  },
+  "keywords": [
+    "gis"
+  ],
+  "author": "Nicolás Joaquin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicojoaquin/greelow-boiler/issues"
+  },
+  "homepage": "https://github.com/nicojoaquin/greelow-boiler#readme"
+}

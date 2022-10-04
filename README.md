@@ -1,1 +1,1 @@
-# is-wds-npm-package
+# Greelow app init script
