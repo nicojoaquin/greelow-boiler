@@ -2,10 +2,11 @@
   "name": "greelow-init",
   "version": "1.0.0",
   "description": "Init script for greelow apps!",
-  "main": "init.sh",
+  "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "project:init": "bash init.sh"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
