@@ -85,21 +85,21 @@ progress 50
 npm install >/dev/null 2>&1
 progress 60
 
-# echo
-# echo "Running migrations..."
-npm run db:start >/dev/null 2>&1
-npm run db:drop >/dev/null 2>&1
-npm run db:generate >/dev/null 2>&1
-progress 70
-migrations_file=$(find ./src/migrations/ -name 1*-migrations.ts)
-SUBSTRING=$(echo $migrations_file | cut -d'-' -f 1)
-FILE_NAME=$(echo $SUBSTRING | cut -d'/' -f 4)
-replace "migrations$FILE_NAME" "migrations1111111111111" $migrations_file
-mv $migrations_file ./src/migrations/1111111111111-migrations.ts
-progress 80
-npm run db:up >/dev/null 2>&1
-npm run db:stop >/dev/null 2>&1
-progress 90
+# # echo
+# # echo "Running migrations..."
+# npm run db:start >/dev/null 2>&1
+# npm run db:drop >/dev/null 2>&1
+# npm run db:generate >/dev/null 2>&1
+# progress 70
+# migrations_file=$(find ./src/migrations/ -name 1*-migrations.ts)
+# SUBSTRING=$(echo $migrations_file | cut -d'-' -f 1)
+# FILE_NAME=$(echo $SUBSTRING | cut -d'/' -f 4)
+# replace "migrations$FILE_NAME" "migrations1111111111111" $migrations_file
+# mv $migrations_file ./src/migrations/1111111111111-migrations.ts
+# progress 80
+# npm run db:up >/dev/null 2>&1
+# npm run db:stop >/dev/null 2>&1
+# progress 90
 
 # echo
 # echo "Initializing Git..."
