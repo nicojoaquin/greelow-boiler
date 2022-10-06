@@ -82,21 +82,22 @@ cp ./.env.example ./.env
 # echo
 # echo "Installing packages..."
 progress 50
-npm run db:start 
-npm install >/dev/null 2>&1
+npm run db:start >/dev/null 2>&1
 progress 60
+npm install >/dev/null 2>&1
+progress 70
 
 # echo
 # echo "Running migrations..."
-npm run db:drop 
-npm run db:generate 
-progress 70
+npm run db:drop >/dev/null 2>&1
+npm run db:generate >/dev/null 2>&1
+progress 80
 migrations_file=$(find ./src/migrations/ -name 1*-migrations.ts)
 SUBSTRING=$(echo $migrations_file | cut -d'-' -f 1)
 FILE_NAME=$(echo $SUBSTRING | cut -d'/' -f 4)
 replace "migrations$FILE_NAME" "migrations1111111111111" $migrations_file
 mv $migrations_file ./src/migrations/1111111111111-migrations.ts
-progress 80
+progress 85
 npm run db:up >/dev/null 2>&1
 npm run db:stop >/dev/null 2>&1
 progress 90
