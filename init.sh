@@ -82,12 +82,12 @@ cp ./.env.example ./.env
 # echo
 # echo "Installing packages..."
 progress 50
+npm run db:start 
 npm install >/dev/null 2>&1
 progress 60
 
 # echo
 # echo "Running migrations..."
-npm run db:start 
 npm run db:drop 
 npm run db:generate 
 progress 70
