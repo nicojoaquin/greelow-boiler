@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-source .env
-
 # replace $1 with $2 in file $3
 replace() 
 {
@@ -17,9 +15,12 @@ delay()
 
 CURRENT_PROGRESS=0
 progress()
-{
+{ 
+    trap finish SIGINT
+
     PARAM_PROGRESS=$1;
     PARAM_PHASE=$2;
+
 
     if [ $CURRENT_PROGRESS -le 0 -a $PARAM_PROGRESS -ge 0 ]  ; then echo -ne "[..........................] (0%)  $PARAM_PHASE \r"  ; delay; fi;
     if [ $CURRENT_PROGRESS -le 5 -a $PARAM_PROGRESS -ge 5 ]  ; then echo -ne "[#.........................] (5%)  $PARAM_PHASE \r"  ; delay; fi;
@@ -92,38 +93,36 @@ sudo killall mysqld >/dev/null 2>&1
 echo
 echo "Installing project..."
 echo
-progress 10
 
-# echo
-# echo "Cloning boiler..."
-# echo
+finish() 
+{
+  cd ..
+  folder=$(realpath $name)
+  rm -rf $folder
+  exit
+}
+
 git clone $git_repo $name >/dev/null 2>&1
+progress 10
 cd $name
-# echo
 progress 20
-
-# echo
-# echo "Configuring files..."
-progress 40
 
 replace "greelow-boiler" "$name" "./package.json"
 replace "A reusable boilerplate with Express - Typescript - typeORM for greelow projects" "$description" "./package.json"
+progress 30
 init_file=init.sh
 if [ -f "$init_file" ] ; then
     rm "$init_file"
 fi
 cp ./.env.example ./.env
+progress 40
 
-# echo
-# echo "Installing packages..."
 progress 50
 $run_command db:start >/dev/null 2>&1
 progress 60
 $install_command >/dev/null 2>&1
 progress 70
 
-# echo
-# echo "Running migrations..."
 $run_command db:drop >/dev/null 2>&1
 $run_command db:generate >/dev/null 2>&1
 progress 80
@@ -137,8 +136,6 @@ $run_command db:up >/dev/null 2>&1
 $run_command db:stop >/dev/null 2>&1
 progress 90
 
-# echo
-# echo "Initializing Git..."
 progress 95
 
 rm -rf .git
@@ -147,9 +144,8 @@ git add .
 git commit -m 'Project installed'  --quiet
 git branch -m develop
 
-cd ..
-
 progress 100
+cd ..
 echo
 echo "Project installed!"
 echo
@@ -159,4 +155,4 @@ echo "$run_command db:start"
 echo "$run_command dev"
 echo
 
-trap rm -rf ./$name INT
+
