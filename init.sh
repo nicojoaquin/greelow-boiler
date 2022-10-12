@@ -118,6 +118,7 @@ cp ./.env.example ./.env
 progress 40
 
 progress 50
+$run_command db:stop >/dev/null 2>&1
 $run_command db:start >/dev/null 2>&1
 progress 60
 $install_command >/dev/null 2>&1
