@@ -66,7 +66,7 @@ then
     run_command="npm run"
     install_command="npm install"
 else
-    git_repo=
+    git_repo="git@github.com:Greelow-LLC/boiler-express-type-yarn.git"
     run_command="yarn"
     install_command="yarn install"
 fi
