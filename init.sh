@@ -52,12 +52,12 @@ select_package()
   do
   if [[ $package == "npm" ]];
   then
-      git_repo="$DEFAULT_REPO"
+      git_repo="git@github.com:Greelow-LLC/boiler-express-type.git"
       run_command="npm run"
       install_command="npm install"
   elif [[ $package == "yarn" ]];
   then
-      git_repo="$YARN_REPO"
+      git_repo="git@github.com:Greelow-LLC/boiler-express-type-yarn.git"
       run_command="yarn"
       install_command="yarn install"
   else
