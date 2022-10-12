@@ -56,6 +56,7 @@ echo
 echo "Project description?"
 read -r description
 
+echo
 echo "Preferred package?"
 select package in npm yarn 
 do
@@ -72,10 +73,11 @@ fi
 break
 done
 
+sudo killall mysqld >/dev/null 2>&1
+
 echo
 echo "Initializing project..."
 echo
-docker kill $(docker ps -q) >/dev/null 2>&1
 progress 10
 
 # echo
