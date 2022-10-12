@@ -43,6 +43,29 @@ function progress()
 
 }
 
+select_package()
+{
+  select package in npm yarn 
+  do
+  if [[ $package == "npm" ]];
+  then
+      git_repo="git@github.com:Greelow-LLC/boiler-express-type.git"
+      run_command="npm run"
+      install_command="npm install"
+  elif [[ $package == "yarn" ]];
+  then
+      git_repo="git@github.com:Greelow-LLC/boiler-express-type-yarn.git"
+      run_command="yarn"
+      install_command="yarn install"
+  else
+      echo 
+      echo "Please, select a valid package"
+      select_package
+  fi
+  break
+  done
+}
+
 
 echo "Please, make sure you have SSH key for clonning GitHub repo." 
 echo
@@ -58,20 +81,7 @@ read -r description
 
 echo
 echo "Preferred package?"
-select package in npm yarn 
-do
-if [[ $package == "npm" ]];
-then
-    git_repo="git@github.com:Greelow-LLC/boiler-express-type.git"
-    run_command="npm run"
-    install_command="npm install"
-else
-    git_repo="git@github.com:Greelow-LLC/boiler-express-type-yarn.git"
-    run_command="yarn"
-    install_command="yarn install"
-fi
-break
-done
+select_package
 
 sudo killall mysqld >/dev/null 2>&1
 
@@ -94,7 +104,10 @@ progress 40
 
 replace "greelow-boiler" "$name" "./package.json"
 replace "A reusable boilerplate with Express - Typescript - typeORM for greelow projects" "$description" "./package.json"
-rm init.sh
+init_file=init.sh
+if [ -f "$init_file" ] ; then
+    rm "$init_file"
+fi
 cp ./.env.example ./.env
 
 # echo
@@ -141,3 +154,5 @@ echo "cd $name"
 echo "$run_command db:start"
 echo "$run_command dev"
 echo
+
+trap '{ rm -f -- "$name"; }' EXIT
