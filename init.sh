@@ -159,4 +159,4 @@ echo "$run_command db:start"
 echo "$run_command dev"
 echo
 
-trap '{ rm -rf -- "$name"; }' INT
+trap rm -rf ./$name INT
