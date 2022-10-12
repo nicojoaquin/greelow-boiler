@@ -3,19 +3,20 @@
 source .env
 
 # replace $1 with $2 in file $3
-replace() {
+replace() 
+{
   if [[ $1 != "" && $2 != "" ]]; then
     perl -pi -e "s/$1/$2/" $3
   fi
 }
 
-function delay()
+delay()
 {
     sleep 0.2;
 }
 
 CURRENT_PROGRESS=0
-function progress()
+progress()
 {
     PARAM_PROGRESS=$1;
     PARAM_PHASE=$2;
@@ -68,10 +69,10 @@ select_package()
   done
 }
 
-
+echo
 echo "Please, make sure you have SSH key for clonning GitHub repo." 
 echo
-echo "Ready? Let's get your info:"
+echo "Let's get your info:"
 
 echo
 echo "Project name?"
@@ -89,7 +90,7 @@ echo
 sudo killall mysqld >/dev/null 2>&1
 
 echo
-echo "Initializing project..."
+echo "Installing project..."
 echo
 progress 10
 
@@ -143,14 +144,14 @@ progress 95
 rm -rf .git
 git init >/dev/null 2>&1
 git add . 
-git commit -m 'Project Initialized'  --quiet
+git commit -m 'Project installed'  --quiet
 git branch -m develop
 
 cd ..
 
 progress 100
 echo
-echo "Project Initialized!"
+echo "Project installed!"
 echo
 echo "To start your project:"
 echo "cd $name"
