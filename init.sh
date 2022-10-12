@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source .env
+
 # replace $1 with $2 in file $3
 replace() {
   if [[ $1 != "" && $2 != "" ]]; then
@@ -49,12 +51,12 @@ select_package()
   do
   if [[ $package == "npm" ]];
   then
-      git_repo="git@github.com:Greelow-LLC/boiler-express-type.git"
+      git_repo="$DEFAULT_REPO"
       run_command="npm run"
       install_command="npm install"
   elif [[ $package == "yarn" ]];
   then
-      git_repo="git@github.com:Greelow-LLC/boiler-express-type-yarn.git"
+      git_repo="$YARN_REPO"
       run_command="yarn"
       install_command="yarn install"
   else
@@ -83,6 +85,7 @@ echo
 echo "Preferred package?"
 select_package
 
+echo
 sudo killall mysqld >/dev/null 2>&1
 
 echo
@@ -155,4 +158,4 @@ echo "$run_command db:start"
 echo "$run_command dev"
 echo
 
-trap '{ rm -f -- "$name"; }' EXIT
+trap '{ rm -f -- "$name"; }' INT
