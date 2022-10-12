@@ -1,6 +1,6 @@
 {
   "name": "greelow-init",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Init script for greelow apps!",
   "bin": {
     "greelow-init": "./init.sh"
